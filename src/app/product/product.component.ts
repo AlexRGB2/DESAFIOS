@@ -1,17 +1,27 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Product } from "../products";
-import { DialogModule } from "primeng/dialog";
 import { CartService } from "../cart.service";
+import { MessageService } from "primeng/api";
+import { PrimeNGConfig } from "primeng/api";
 
 @Component({
   selector: "app-product",
   templateUrl: "./product.component.html",
   styleUrls: ["./product.component.css"],
+  providers: [MessageService],
 })
-export class ProductComponent {
+export class ProductComponent implements OnInit {
   display: boolean = false;
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private messageService: MessageService,
+    private primengConfig: PrimeNGConfig
+  ) {}
+
+  ngOnInit(): void {
+    this.primengConfig.ripple = true;
+  }
 
   @Input() product!: Product;
 
@@ -29,6 +39,9 @@ export class ProductComponent {
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
-    window.alert("Your product has been added to the cart!");
+    this.messageService.add({
+      severity: "success",
+      detail: "Se agrega al carrito de compras",
+    });
   }
 }
