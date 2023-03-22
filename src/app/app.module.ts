@@ -15,6 +15,10 @@ import { ProductComponent } from "./product/product.component";
 import { DialogModule } from "primeng/dialog";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastModule } from "primeng/toast";
+import { ProductAdminComponent } from "./admin/product-admin/product-admin.component";
+import { TableModule } from "primeng/table";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 @NgModule({
   imports: [
@@ -24,11 +28,14 @@ import { ToastModule } from "primeng/toast";
     DialogModule,
     ReactiveFormsModule,
     ToastModule,
+    TableModule,
+    ConfirmDialogModule,
     RouterModule.forRoot([
       { path: "", component: ProductListComponent },
       { path: "products/:productId", component: ProductDetailsComponent },
       { path: "cart", component: CartComponent },
       { path: "shipping", component: ShippingComponent },
+      { path: "admin", component: ProductAdminComponent },
     ]),
   ],
   declarations: [
@@ -40,7 +47,9 @@ import { ToastModule } from "primeng/toast";
     CartComponent,
     ShippingComponent,
     ProductComponent,
+    ProductAdminComponent,
   ],
+  providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
